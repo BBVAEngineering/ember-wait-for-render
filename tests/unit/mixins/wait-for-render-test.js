@@ -3,6 +3,8 @@ import WaitForRenderMixin from 'ember-wait-for-render/mixins/wait-for-render';
 import { EVENT_NAME } from 'ember-wait-for-render/mixins/wait-for-render';
 import { module, test } from 'qunit';
 
+const { subscribe } = Ember.Instrumentation;
+
 module('Unit | Mixin | wait for render');
 
 test('it works in a Route object', function(assert) {
@@ -32,7 +34,7 @@ test('it does not works if object is not a Route', function(assert) {
     routeName
   });
 
-  Ember.subscribe(`${EVENT_NAME}.${routeName}`, {
+  subscribe(`${EVENT_NAME}.${routeName}`, {
     before: () => assert.ok(1),
     after: () => {
       assert.ok(1);
@@ -53,7 +55,7 @@ test('it toggles \'_rendered\' property', function(assert) {
     routeName
   });
 
-  Ember.subscribe(`${EVENT_NAME}.${routeName}`, {
+  subscribe(`${EVENT_NAME}.${routeName}`, {
     before: () => Ember.K,
     after: () => {
       assert.ok(subject.get('_rendered'));

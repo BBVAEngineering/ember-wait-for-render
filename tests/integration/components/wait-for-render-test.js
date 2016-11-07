@@ -3,6 +3,8 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { EVENT_NAME } from 'ember-wait-for-render/mixins/wait-for-render';
 
+const { instrument } = Ember.Instrumentation;
+
 moduleForComponent('wait-for-render', 'Integration | Component | wait for render', {
   integration: true
 });
@@ -17,17 +19,32 @@ test('it does not renders the content', function(assert) {
   assert.equal(this.$().text().trim(), '');
 });
 
-test('it renders the content when signal has been triggered', function(assert) {
+test('it renders the content when route is ready', function(assert) {
   const content = 'foo';
 
   this.set('content', content);
   this.render(hbs`{{#wait-for-render}}{{content}}{{/wait-for-render}}`);
 
   Ember.run(() => {
-    Ember.instrument(`${EVENT_NAME}.foo`, () => {
-      assert.ok(1);
-    });
+    instrument(`${EVENT_NAME}.*`, Ember.K);
   });
 
-  assert.equal(this.$().text().trim(), content);
+  Ember.run(() => {
+    assert.equal(this.$().text().trim(), content);
+  });
+});
+
+test('it renders the content when specific route is ready', function(assert) {
+  const content = 'foo';
+
+  this.set('content', content);
+  this.render(hbs`{{#wait-for-render for=content}}{{content}}{{/wait-for-render}}`);
+
+  Ember.run(() => {
+    instrument(`${EVENT_NAME}.${content}`, Ember.K);
+  });
+
+  Ember.run(() => {
+    assert.equal(this.$().text().trim(), content);
+  });
 });

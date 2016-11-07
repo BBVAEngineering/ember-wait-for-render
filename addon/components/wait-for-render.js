@@ -2,6 +2,8 @@ import Ember from 'ember';
 import layout from '../templates/components/wait-for-render';
 import { EVENT_NAME } from '../mixins/wait-for-render';
 
+const { subscribe, unsubscribe } = Ember.Instrumentation;
+
 /**
  * Defer component render until route has been rendered.
  * Route must implement 'wait-for-render' mixin.
@@ -64,6 +66,16 @@ export default Ember.Component.extend({
 	loading: null,
 
 	/**
+	 * Stores component instrumentation object.
+	 *
+	 * @property _subscriber
+	 * @type Object
+	 * @default null
+	 * @public
+	 */
+	_subscriber: null,
+
+	/**
 	 * Subscribe to route events.
 	 *
 	 * @method didInsertElement
@@ -72,10 +84,12 @@ export default Ember.Component.extend({
 	didInsertElement: function didInsertElement() {
 		this._super(...arguments);
 
-		Ember.subscribe(`${EVENT_NAME}.${this.get('for')}`, {
+		const subscriber = subscribe(`${EVENT_NAME}.${this.get('for')}`, {
 			before: Ember.K,
 			after: () => this._render()
 		});
+
+		this.set('_subscriber', subscriber);
 	},
 
 	/**
@@ -90,8 +104,16 @@ export default Ember.Component.extend({
 		}
 
 		this.set('_rendered', true);
+	},
+
+	/**
+	 * Destroy instrumentation binding.
+	 *
+	 * @method willDestroyElement
+	 * @private
+	 */
+	willDestroyElement() {
+		unsubscribe(this.get('_subscriber'));
 	}
 
-}).reopenClass({
-	positionalParams: ['for']
 });

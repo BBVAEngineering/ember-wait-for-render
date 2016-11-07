@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
+const { instrument } = Ember.Instrumentation;
+
 export const EVENT_NAME = 'wait-for-render';
 
 export default Ember.Mixin.create({
@@ -18,7 +20,7 @@ export default Ember.Mixin.create({
 				// Defer to the next cycle to allow a browser render
 				Ember.run.next(this, () => {
 					// Send a signal when template is fully rendered
-					Ember.instrument(`${EVENT_NAME}.${this.routeName}`, () => {
+					instrument(`${EVENT_NAME}.${this.routeName}`, () => {
 						// Set a flag for debugging purposes
 						this.set('_rendered', true);
 					});
