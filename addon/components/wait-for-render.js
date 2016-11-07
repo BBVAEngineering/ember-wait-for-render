@@ -104,15 +104,6 @@ export default Ember.Component.extend({
 		}
 
 		this.set('_rendered', true);
-	},
-
-	/**
-	 * Destroy instrumentation binding.
-	 *
-	 * @method willDestroyElement
-	 * @private
-	 */
-	willDestroyElement() {
 		unsubscribe(this.get('_subscriber'));
 	}
 
