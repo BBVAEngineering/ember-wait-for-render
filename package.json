@@ -1,7 +1,7 @@
 {
   "name": "ember-wait-for-render",
   "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "Component to prevent rendering content before route is fully rendered.",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -11,11 +11,20 @@
     "start": "ember server",
     "test": "ember try:each"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:BBVAEngineering/ember-wait-for-render.git"
+  },
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "",
+  "author": "BBVAEngineering",
+  "maintainers": [
+    {
+      "name": "josex2r",
+      "email": "codex2r@gmail.com"
+    }
+  ],
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.2",
