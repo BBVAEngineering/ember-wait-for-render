@@ -56,6 +56,51 @@ A typical example is an application menu that is hidden until the user has logge
 {{/wait-for-render}}
 ```
 
+## Integration with `liquid-fire`
+
+* Reopen the `wait-for-render` component and change the layout.
+
+```javascript
+import Ember from 'ember';
+import WaitForRenderComponent from 'ember-wait-for-render/components/wait-for-render';
+
+WaitForRenderComponent.reopen({
+
+	layout: Ember.computed(function() {
+		const layoutName = this.get('layoutName');
+		const layout = this.templateForName(layoutName, 'layout');
+
+		Ember.assert(`You specified the layoutName ${layoutName} for ${this}, but it did not exist.`, !layoutName || !!layout);
+
+		return layout || this.get('defaultLayout');
+	}),
+
+	layoutName: 'wait-for-render'
+
+});
+```
+
+* Write your custom template.
+
+```handlebars
+{{!-- wait-for-render/template.hbs --}}
+{{#liquid-if _rendered class="wait-for-render"}}
+	{{yield}}
+{{/liquid-if}}
+```
+
+* Define the transition.
+
+```javascript
+// app/transitions.js
+this.transition(
+  this.hasClass('wait-for-render'),
+  this.toValue(true),
+  this.use('crossFade', { duration: 400 }),
+  this.reverse('crossFade', { duration: 400 })
+);
+```
+
 ## Running
 
 * `ember serve`
