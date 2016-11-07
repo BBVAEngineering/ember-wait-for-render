@@ -1,6 +1,6 @@
 {
   "name": "ember-wait-for-render",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Component to prevent rendering content before route is fully rendered.",
   "directories": {
     "doc": "doc",
