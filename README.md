@@ -1,4 +1,4 @@
-# ember-wait-for-render
+# ember-wait-for-render [![Build Status](https://travis-ci.org/BBVAEngineering/ember-wait-for-render.svg?branch=master)](https://travis-ci.org/BBVAEngineering/ember-wait-for-render) [![GitHub version](https://badge.fury.io/gh/BBVAEngineering%2Fember-wait-for-render.svg)](https://badge.fury.io/gh/BBVAEngineering%2Fember-wait-for-render) [![Dependency Status](https://david-dm.org/BBVAEngineering/ember-wait-for-render.svg)](https://david-dm.org/BBVAEngineering/ember-wait-for-render)
 
 Component + Mixin to prevent rendering content before route is fully rendered.
 
