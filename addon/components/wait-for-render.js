@@ -26,6 +26,16 @@ const { subscribe, unsubscribe } = Ember.Instrumentation;
 export default Ember.Component.extend({
 
 	/**
+	 * Remove parent wrapper.
+	 *
+	 * @property tagName
+	 * @type String
+	 * @default ''
+	 * @private
+	 */
+	tagName: '',
+
+	/**
 	 * Component template file.
 	 *
 	 * @property layout
