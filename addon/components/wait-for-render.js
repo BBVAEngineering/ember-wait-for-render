@@ -4,6 +4,10 @@ import { EVENT_NAME } from '../mixins/wait-for-render';
 
 const { subscribe, unsubscribe } = Ember.Instrumentation;
 
+function isPromise(obj) {
+	return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
+}
+
 /**
  * Defer component render until route has been rendered.
  * Route must implement 'wait-for-render' mixin.
@@ -91,15 +95,21 @@ export default Ember.Component.extend({
 	 * @method didInsertElement
 	 * @private
 	 */
-	didInsertElement: function didInsertElement() {
+	didInsertElement() {
 		this._super(...arguments);
 
-		const subscriber = subscribe(`${EVENT_NAME}.${this.get('for')}`, {
-			before: Ember.K,
-			after: () => this._render()
-		});
+		const forAttr = this.get('for');
 
-		this.set('_subscriber', subscriber);
+		if (isPromise(forAttr)) {
+			forAttr.then(() => this._render());
+		} else {
+			const subscriber = subscribe(`${EVENT_NAME}.${this.get('for')}`, {
+				before: Ember.K,
+				after: () => this._render()
+			});
+
+			this.set('_subscriber', subscriber);
+		}
 	},
 
 	/**

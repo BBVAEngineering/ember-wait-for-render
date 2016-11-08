@@ -19,10 +19,10 @@ import WaitForRenderMixin from 'ember-wait-for-render/mixins/wait-for-render';
 
 export default Route.extend(WaitForRenderMixin, {
   // ...
-}
+});
 ```
 
-* Use the component in your template
+* Use the component in your template.
 
 ```html
 {{!-- pods/index/template.hbs --}}
@@ -37,13 +37,13 @@ export default Route.extend(WaitForRenderMixin, {
 
 ## `for` attribute
 
-The `for` attribute is necessary when you have global components (in `application.hbs`) that doesn't has to be rendered before the user reaches certain page.
+The `for` attribute can be used to render global components (in `application.hbs`) that doesn't has to be drawed before the user reaches certain page.
 
 A typical example is an application menu that is hidden until the user has logged.
 
 * Add the `wait-for-render` Mixin to your route.
 
-* Use the component in your application template
+* Use the component in your application template.
 
 ```html
 {{!-- pods/application/template.hbs --}}
@@ -53,6 +53,28 @@ A typical example is an application menu that is hidden until the user has logge
 {{!-- this block will be rendered after user reaches 'dashboard' route --}}
 {{#wait-for-render for="dashboard"}}
   {{my-menu}}
+{{/wait-for-render}}
+```
+
+## Promises with `for`
+
+The `for` attribute also accepts **A+** promises (an object with a `then` method is required).
+
+A little example:
+
+```javascript
+{{!-- controller.js --}}
+Ember.Controller.extend({
+  // Set any promise into the view context
+  promise: new Ember.RSVP.Promise().resolve()
+});
+```
+
+```html
+{{!-- template.hbs --}}
+
+{{#wait-for-render for=promise}}
+  {{my-component}}
 {{/wait-for-render}}
 ```
 
