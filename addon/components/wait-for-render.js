@@ -104,7 +104,7 @@ export default Ember.Component.extend({
 			forAttr.then(() => this._render());
 		} else {
 			const subscriber = subscribe(`${EVENT_NAME}.${this.get('for')}`, {
-				before: Ember.K,
+				before: () => {},
 				after: () => this._render()
 			});
 
