@@ -1,13 +1,21 @@
-# ember-wait-for-render [![Build Status](https://travis-ci.org/BBVAEngineering/ember-wait-for-render.svg?branch=master)](https://travis-ci.org/BBVAEngineering/ember-wait-for-render) [![GitHub version](https://badge.fury.io/gh/BBVAEngineering%2Fember-wait-for-render.svg)](https://badge.fury.io/gh/BBVAEngineering%2Fember-wait-for-render) [![Dependency Status](https://david-dm.org/BBVAEngineering/ember-wait-for-render.svg)](https://david-dm.org/BBVAEngineering/ember-wait-for-render)
+# ember-wait-for-render
+
+[![Build Status](https://travis-ci.org/BBVAEngineering/ember-wait-for-render.svg?branch=master)](https://travis-ci.org/BBVAEngineering/ember-wait-for-render)
+[![GitHub version](https://badge.fury.io/gh/BBVAEngineering%2Fember-wait-for-render.svg)](https://badge.fury.io/gh/BBVAEngineering%2Fember-wait-for-render)
+[![npm version](https://badge.fury.io/js/ember-wait-for-render.svg)](https://badge.fury.io/js/ember-wait-for-render)
+[![Dependency Status](https://david-dm.org/BBVAEngineering/ember-wait-for-render.svg)](https://david-dm.org/BBVAEngineering/ember-wait-for-render)
 
 Component + Mixin to prevent rendering content before route is fully rendered.
 
-## Installation
+## Information
 
-* `git clone <repository-url>` this repository
-* `cd ember-wait-for-render`
-* `npm install` or `yarn`
-* `bower install`
+[![NPM](https://nodei.co/npm/ember-wait-for-render.png?downloads=true&downloadRank=true)](https://nodei.co/npm/ember-wait-for-render/)
+
+## Install in ember-cli application
+
+In your application's directory:
+
+    ember install ember-wait-for-render
 
 ## Usage
 
@@ -123,19 +131,18 @@ this.transition(
 );
 ```
 
-## Running
+## Contribute
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+If you want to contribute to this addon, please read the [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## Running Tests
+## Versioning
 
-* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
-* `ember test`
-* `ember test --server`
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/BBVAEngineering/ember-wait-for-render/tags).
 
-## Building
+## Authors
 
-* `ember build`
+See the list of [contributors](https://github.com/BBVAEngineering/ember-wait-for-render/graphs/contributors) who participated in this project.
 
-For more information on using ember-cli, visit [http://ember-cli.com/](http://ember-cli.com/).
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
