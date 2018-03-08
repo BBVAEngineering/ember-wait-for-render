@@ -96,16 +96,16 @@ import WaitForRenderComponent from 'ember-wait-for-render/components/wait-for-re
 
 WaitForRenderComponent.reopen({
 
-	layout: Ember.computed(function() {
-		const layoutName = this.get('layoutName');
-		const layout = this.templateForName(layoutName, 'layout');
+  layout: Ember.computed(function() {
+    const layoutName = this.get('layoutName');
+    const layout = this.templateForName(layoutName, 'layout');
 
-		Ember.assert(`You specified the layoutName ${layoutName} for ${this}, but it did not exist.`, !layoutName || !!layout);
+    Ember.assert(`You specified the layoutName ${layoutName} for ${this}, but it did not exist.`, !layoutName || !!layout);
 
-		return layout || this.get('defaultLayout');
-	}),
+    return layout || this.get('defaultLayout');
+  }),
 
-	layoutName: 'wait-for-render'
+  layoutName: 'wait-for-render'
 
 });
 ```
@@ -115,7 +115,7 @@ WaitForRenderComponent.reopen({
 ```handlebars
 {{!-- wait-for-render/template.hbs --}}
 {{#liquid-if _rendered class="wait-for-render"}}
-	{{yield}}
+  {{yield}}
 {{/liquid-if}}
 ```
 
