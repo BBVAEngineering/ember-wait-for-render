@@ -7,63 +7,43 @@ const { subscribe } = Ember.Instrumentation;
 
 module('Unit | Mixin | wait for render');
 
-test('it works in a Route object', function(assert) {
-  let WaitForRenderObject = Ember.Route.extend(WaitForRenderMixin);
-  let subject = WaitForRenderObject.create();
-  assert.ok(subject);
+test('it works in a Route object', (assert) => {
+	const WaitForRenderObject = Ember.Route.extend(WaitForRenderMixin);
+	const subject = WaitForRenderObject.create();
+
+	assert.ok(subject);
 });
 
-test('it does not works if object is not a Route', function(assert) {
-  let WaitForRenderObject = Ember.Controller.extend(WaitForRenderMixin);
-  let subject = WaitForRenderObject.create();
+test('it does not works if object is not a Route', (assert) => {
+	const WaitForRenderObject = Ember.Controller.extend(WaitForRenderMixin);
+	const subject = WaitForRenderObject.create();
 
-  try {
-    subject.send('didTransition');
-  } catch(e) {
-    assert.ok(e);
-  }
+	try {
+		subject.send('didTransition');
+	} catch (e) {
+		assert.ok(e);
+	}
 });
 
-test('it does not works if object is not a Route', function(assert) {
-  assert.expect(2);
+test('it toggles \'_rendered\' property', (assert) => {
+	const done = assert.async();
+	const routeName = 'foo';
+	const WaitForRenderObject = Ember.Route.extend(WaitForRenderMixin);
+	const subject = WaitForRenderObject.create({
+		routeName
+	});
 
-  const done = assert.async();
-  const routeName = 'foo';
-  let WaitForRenderObject = Ember.Route.extend(WaitForRenderMixin);
-  let subject = WaitForRenderObject.create({
-    routeName
-  });
+	subscribe(`${EVENT_NAME}.${routeName}`, {
+		before: () => {
+			assert.notOk(subject.get('_rendered'));
+		},
+		after: () => {
+			assert.ok(subject.get('_rendered'));
+			done();
+		}
+	});
 
-  subscribe(`${EVENT_NAME}.${routeName}`, {
-    before: () => assert.ok(1),
-    after: () => {
-      assert.ok(1);
-      done();
-    }
-  });
-
-  Ember.run(() => {
-    subject.send('didTransition');
-  });
-});
-
-test('it toggles \'_rendered\' property', function(assert) {
-  const done = assert.async();
-  const routeName = 'foo';
-  let WaitForRenderObject = Ember.Route.extend(WaitForRenderMixin);
-  let subject = WaitForRenderObject.create({
-    routeName
-  });
-
-  subscribe(`${EVENT_NAME}.${routeName}`, {
-    before: () => Ember.K,
-    after: () => {
-      assert.ok(subject.get('_rendered'));
-      done();
-    }
-  });
-
-  Ember.run(() => {
-    subject.send('didTransition');
-  });
+	Ember.run(() => {
+		subject.send('didTransition');
+	});
 });
