@@ -30,13 +30,13 @@ matrix:
 
 before_install:
   - npm config set spin false
-  - npm install -g npm@4
+  - npm install -g npm@^5.7
   - npm install -g bower
   - npm --version
   - bower --version
 
 install:
-  - npm install
+  - npm ci
   - bower install
 
 before_script:
