@@ -1,3 +1,5 @@
+# DEPRECATED
+
 # ember-wait-for-render
 
 [![Build Status](https://travis-ci.org/BBVAEngineering/ember-wait-for-render.svg?branch=master)](https://travis-ci.org/BBVAEngineering/ember-wait-for-render)
